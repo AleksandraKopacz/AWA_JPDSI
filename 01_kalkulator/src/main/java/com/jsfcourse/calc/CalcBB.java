@@ -49,12 +49,29 @@ public class CalcBB {
 		this.result = result;
 	}
 
+	public boolean validate(double loan, double interest, double installments) {
+		if(loan <= 0) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Kwota kredytu nie może być mniejsza lub równa 0", null));
+			return false;
+		}
+		if(installments <= 0) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Kredyt nie może mieć mniejszej liczby rat niż 1", null));
+			return false;
+		}
+		if(interest <= 0 || interest > 20) {
+			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Kredyt nie może mieć oprocentowania poniżej 0% lub powyżej 20%", null));
+			return false;
+		}
+		return true;
+	}
+	
 	public String calc() {		
 		try {
 			double loan = Double.parseDouble(this.loan);
 			double interest = Double.parseDouble(this.interest);
 			double installments = Double.parseDouble(this.installments);
 			
+			if(validate(loan, interest, installments)) {
 			if(interest == 0) result = loan/installments;
 			else {
 			double result1 = loan * (interest/100);
@@ -64,7 +81,9 @@ public class CalcBB {
 			}
 			
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
-			return "showresult"; 
+			return "showresult";
+			}
+			else return null;
 		} catch (Exception e) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
 			return null; 
