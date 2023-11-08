@@ -1,11 +1,11 @@
 body{
 	font-family: 'Century Gothic',helvetica,verdana,arial;
-	background: url("../img/w1.jpg.jsf?ln=template") no-repeat center center fixed;
-	background-size: cover;
+	background-color: lightpink;
 	margin:0;
 }
 
 .bottom-space{
+	margin-top: 1em;
 	margin-bottom: 1em;
 }
 
@@ -19,11 +19,11 @@ body{
 	background-color: #fff;
 }
 
-#page_wrapper{
-	margin: 1em;
-		x;
+#page_wrapper {
+	width: 50%;
+	margin: auto;
 }
 
 #footer{
-	text-align: center;
+	text-align: right;
 }

@@ -13,13 +13,13 @@
 
 		<h:form>
 			<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
-				<h:outputLabel for="idl" value="loan:" />
+				<h:outputLabel for="idl" value="Kredyt:" />
 				<h:inputText id="idl" value="#{calcBB.loan}" />
 
-				<h:outputLabel for="idin" value="interest:" />
+				<h:outputLabel for="idin" value="Oprocentowanie:" />
 				<h:inputText id="idin" value="#{calcBB.interest}" />
 				
-				<h:outputLabel for="idinst" value="installments:" />
+				<h:outputLabel for="idinst" value="Ilość rat:" />
 				<h:inputText id="idinst" value="#{calcBB.installments}" />
 
 				<h:commandButton value="Dodaj" action="#{calcBB.calc()}"/>
