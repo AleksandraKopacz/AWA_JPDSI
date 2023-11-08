@@ -27,3 +27,8 @@ body{
 #footer{
 	text-align: right;
 }
+
+a {
+	color: pink;
+	text-decoration: wavy underline;
+}
