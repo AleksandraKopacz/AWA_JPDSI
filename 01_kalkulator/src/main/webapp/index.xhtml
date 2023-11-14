@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="/templates/page-template.xhtml">
 
@@ -12,19 +14,19 @@
 		<h:messages id="msg" />
 
 		<h:form>
-			<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+			<p:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
 				<h:outputLabel for="idl" value="Kredyt:" />
-				<h:inputText id="idl" value="#{calcBB.loan}" />
+				<p:inputText id="idl" value="#{calcBB.loan}" />
 
 				<h:outputLabel for="idin" value="Oprocentowanie:" />
-				<h:inputText id="idin" value="#{calcBB.interest}" />
+				<p:inputText id="idin" value="#{calcBB.interest}" />
 				
 				<h:outputLabel for="idinst" value="Ilość rat:" />
-				<h:inputText id="idinst" value="#{calcBB.installments}" />
+				<p:inputText id="idinst" value="#{calcBB.installments}" />
 
-				<h:commandButton value="Dodaj" action="#{calcBB.calc()}"/>
-			</h:panelGrid>
-			<h:commandLink value="Informacje" action="#{calcBB.info()}" />
+				<p:commandButton value="Dodaj" action="#{calcBB.calc()}"/>
+			</p:panelGrid>
+			<p:commandLink value="Informacje" action="#{calcBB.info()}" />
 		</h:form>
 
 	</ui:define>
