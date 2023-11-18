@@ -11,21 +11,31 @@
 
 	<ui:define name="pageContent">
 
-		<h:messages id="msg" />
 
 		<h:form>
+			<p:messages id="msgs"/>
+			
 			<p:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
 				<h:outputLabel for="idl" value="Kredyt:" />
-				<p:inputText id="idl" value="#{calcBB.loan}" />
+				<p:inputText id="idl" value="#{calcBB.loan}" required="true" label="Kredyt">
+					<f:validateDoubleRange minimum = "0" />
+				</p:inputText>
 
 				<h:outputLabel for="idin" value="Oprocentowanie:" />
-				<p:inputText id="idin" value="#{calcBB.interest}" />
+				<p:inputText id="idin" value="#{calcBB.interest}" required="true" label="Oprocentowanie">
+					<f:validateDoubleRange minimum = "0" maximum = "20" />
+				</p:inputText>
 				
 				<h:outputLabel for="idinst" value="Ilość rat:" />
-				<p:inputText id="idinst" value="#{calcBB.installments}" />
+				<p:inputText id="idinst" value="#{calcBB.installments}" required="true" label="Ilość rat">
+					<f:validateDoubleRange minimum = "0" />
+				</p:inputText>
 
-				<p:commandButton value="Dodaj" action="#{calcBB.calc()}"/>
+				<p:commandButton value="Dodaj" action="#{calcBB.calc()}" update="@form"/>
 			</p:panelGrid>
+		</h:form>
+		
+		<h:form>
 			<p:commandLink value="Informacje" action="#{calcBB.info()}" />
 		</h:form>
 
