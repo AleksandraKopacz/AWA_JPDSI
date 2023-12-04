@@ -11,6 +11,7 @@ import jakarta.faces.context.Flash;
 import jakarta.faces.view.ViewScoped;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import com.jsf.dao.ResultsDAO;
@@ -18,7 +19,7 @@ import com.jsf.dao.ResultsDAO;
 import model.Result;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class CalcAddBB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,9 +29,9 @@ public class CalcAddBB implements Serializable {
 	private Result results = new Result();
 	private Result loaded = null;
 	
-	private String loan;
-	private String installments;
-	private String interest;
+	private Double loan;
+	private Double installments;
+	private Double interest;
 	private Double result;
 	
 	@Inject
@@ -48,28 +49,50 @@ public class CalcAddBB implements Serializable {
 	public Result getResults() {
 		return results;
 	}
+	
+	public void onLoad() throws IOException {
+		// 1. load person passed through session
+		// HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		// loaded = (Person) session.getAttribute("person");
 
-	public String getLoan() {
+		// 2. load person passed through flash
+		loaded = (Result) flash.get("results");
+
+		// cleaning: attribute received => delete it from session
+		if (loaded != null) {
+			results = loaded;
+			// session.removeAttribute("person");
+		} else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
+			// if (!context.isPostback()) { //possible redirect
+			// context.getExternalContext().redirect("personList.xhtml");
+			// context.responseComplete();
+			// }
+		}
+
+	}
+
+	public Double getLoan() {
 		return loan;
 	}
 
-	public void setLoan(String loan) {
+	public void setLoan(Double loan) {
 		this.loan = loan;
 	}
 
-	public String getInstallments() {
+	public Double getInstallments() {
 		return installments;
 	}
 
-	public void setInstallments(String installments) {
+	public void setInstallments(Double installments) {
 		this.installments = installments;
 	}
 
-	public String getInterest() {
+	public Double getInterest() {
 		return interest;
 	}
 
-	public void setInterest(String interest) {
+	public void setInterest(Double interest) {
 		this.interest = interest;
 	}
 
@@ -99,11 +122,10 @@ public class CalcAddBB implements Serializable {
 	
 	public String calc() {		
 		try {
-			double loan = Double.parseDouble(this.loan);
-			double interest = Double.parseDouble(this.interest);
-			double installments = Double.parseDouble(this.installments);
+			double loan = this.loan;
+			double interest = this.interest;
+			double installments = this.installments;
 			
-			if(validate(loan, interest, installments)) {
 			if(interest == 0) result = loan/installments;
 			else {
 			double result1 = loan * (interest/100);
@@ -116,8 +138,6 @@ public class CalcAddBB implements Serializable {
 			
 			//resultsDAO.create(results);
 			return "showresult";
-			}
-			else return null;
 		} catch (Exception e) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd podczas przetwarzania parametrów", null));
 			return null; 
@@ -128,5 +148,6 @@ public class CalcAddBB implements Serializable {
 	public String info() {
 		return "info"; 
 	}
+	
 
 }

@@ -6,28 +6,32 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    
+<!--<f:metadata>
+    <f:viewAction action="#{calcAddBB.onLoad()}" />
+</f:metadata>-->
 
 <ui:composition template="/templates/page-template.xhtml">
 
 	<ui:define name="pageContent">
 
 
-		<h:form rendered="#{calcAddBB.results != null}">
+		<h:form>
 			<p:messages id="msgs"/>
 			
 			<p:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
 				<h:outputLabel for="idl" value="Kredyt:" />
-				<p:inputText id="idl" value="#{calcAddBB.loan}" required="true" label="Kredyt">
+				<p:inputText id="idl" value="#{calcAddBB.results.loan}" required="true" label="Kredyt">
 					<f:validateDoubleRange minimum = "0" />
 				</p:inputText>
 
 				<h:outputLabel for="idin" value="Oprocentowanie:" />
-				<p:inputText id="idin" value="#{calcAddBB.interest}" required="true" label="Oprocentowanie">
+				<p:inputText id="idin" value="#{calcAddBB.result.sinterest}" required="true" label="Oprocentowanie">
 					<f:validateDoubleRange minimum = "0" maximum = "20" />
 				</p:inputText>
 				
 				<h:outputLabel for="idinst" value="Ilość rat:" />
-				<p:inputText id="idinst" value="#{calcAddBB.installments}" required="true" label="Ilość rat">
+				<p:inputText id="idinst" value="#{calcAddBB.results.installments}" required="true" label="Ilość rat">
 					<f:validateDoubleRange minimum = "0" />
 				</p:inputText>
 

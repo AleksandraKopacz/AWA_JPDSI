@@ -6,6 +6,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    
+    <f:metadata>
+    <f:viewAction action="#{calcListBB.getFullList()}" />
+</f:metadata>
 
 <ui:composition template="/templates/main-template.xhtml">
 
@@ -19,6 +23,40 @@
 			<p:commandLink value="Strona główna" action="index" />
 		</h:form>
 	</ui:define>
+	<h:form id="form-table" style="margin-bottom:1em;">
+
+		<p:dataTable value="#{calcListBB.list}" var="r">
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="loan" />
+				</f:facet>
+				<h:outputText value="#{r.loan}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="interest" />
+				</f:facet>
+				<h:outputText value="#{r.interest}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="installments" />
+				</f:facet>
+				<h:outputText value="#{r.installments}" />
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="result" />
+				</f:facet>
+				<h:outputText value="#{r.result}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
 
 </ui:composition>
 </html>
